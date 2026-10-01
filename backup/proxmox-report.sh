@@ -12,7 +12,9 @@
 set -uo pipefail
 umask 077
 
-SCRIPT_VERSION='5.1.1'
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+SCRIPT_VERSION='5.1.4'
 FRAME='+------------------------------------------------------------------------------+'
 CONFIG_FILE="${CONFIG_FILE:-/etc/proxmox-report.conf}"
 SOURCE_ROOT="${SOURCE_ROOT:-/}"
@@ -1323,36 +1325,36 @@ fi
 BUILD_SECONDS=$(( $(date +%s) - START_EPOCH ))
 BUILD_TIME="$(format_duration "$BUILD_SECONDS")"
 
-DISCORD_MESSAGE="# Proxmox Report
+DISCORD_MESSAGE="# PROXMOX REPORT
 
-Host: ${HOST}
-Time: $(date '+%Y-%m-%d %H:%M')
-Uptime: ${UPTIME}
-Load: ${LOAD_AVG}
-Root: ${ROOT_USAGE}
-Memory: ${MEMORY_USAGE}
-Swap: ${SWAP_USAGE}
-Failed Services: ${FAILED_SERVICES}
-Errors (24h): ${ERROR_COUNT}
+Host: \`${HOST}\`
+Time: \`$(date '+%Y-%m-%d %H:%M')\`
+Uptime: \`${UPTIME}\`
+Load: \`${LOAD_AVG}\`
+Root: \`${ROOT_USAGE}\`
+Memory: \`${MEMORY_USAGE}\`
+Swap: \`${SWAP_USAGE}\`
+Failed Services: \`${FAILED_SERVICES}\`
+Errors (24h): \`${ERROR_COUNT}\`
 
 ## PROXMOX
-Cluster: ${CLUSTER_STATUS}
-VMs: ${VM_RUNNING}/${VM_COUNT} running
-LXC: ${LXC_RUNNING}/${LXC_COUNT} running
-Storage: ${STORAGE_STATUS}
-ZFS: ${ZFS_STATUS}
+Cluster: \`${CLUSTER_STATUS}\`
+VMs: \`${VM_RUNNING}/${VM_COUNT} running\`
+LXC: \`${LXC_RUNNING}/${LXC_COUNT} running\`
+Storage: \`${STORAGE_STATUS}\`
+ZFS: \`${ZFS_STATUS}\`
 
 ## MEDIA
-Path: ${MEDIA_DIR}
-Files: ${TOTAL_MEDIA_FILES}
-Directories: ${TOTAL_MEDIA_DIRS}
-Size: ${TOTAL_MEDIA_SIZE}
-Inventory: $(format_duration "$((MEDIA_WALK_SECONDS + MEDIA_SORT_SECONDS))")
+Path: \`${MEDIA_DIR}\`
+Files: \`${TOTAL_MEDIA_FILES}\`
+Directories: \`${TOTAL_MEDIA_DIRS}\`
+Size: \`${TOTAL_MEDIA_SIZE}\`
+Inventory: \`$(format_duration "$((MEDIA_WALK_SECONDS + MEDIA_SORT_SECONDS))")\`
 
 ## SNAPSHOT
-Archive: ${SNAPSHOT_ARCHIVE##*/}
-Archive Size: ${ARCHIVE_SIZE}
-Build Time: ${BUILD_TIME}"
+Archive: \`${SNAPSHOT_ARCHIVE##*/}\`
+Archive Size: \`${ARCHIVE_SIZE}\`
+Build Time: \`${BUILD_TIME}\`"
 
 chapter 7 'Discord + Cleanup'
 
